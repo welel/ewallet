@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+vevn/
+dev/
+migrations/
+.env
+*.sqlite
+*.sqlite3
