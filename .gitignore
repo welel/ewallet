@@ -6,3 +6,4 @@ migrations/
 .env
 *.sqlite
 *.sqlite3
+.idea/
