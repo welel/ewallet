@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: python3 manage.py runserver  0.0.0.0:8000
+    volumes:
+      - "./ewallet/:/app:rw"
+    ports:
+      -  ${DJANGO_MAP_PORT}:8000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    networks:
+      - ewaller-network
+    restart: unless-stopped
+  
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - ${POSTGRES_MAP_PORT}:5432
+    env_file:
+      - ./.env.db
+    networks:
+      - ewaller-network
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  ewaller-network:
+    external: false
