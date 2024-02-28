@@ -10,6 +10,7 @@ urlpatterns = [
     path('wallets', WalletView.as_view(), name='create-wallet'),
     path('wallets/<str:slug>', WalletView.as_view(), name='update-wallet'),
     path('wallets/<str:slug>', WalletView.as_view(), name='delete-wallet'),
+    path('wallets/get-by-slug/<str:slug>', WalletView.get_by_slug, name='get-by-slug-wallet'),
     path('transactions', TransactionView.as_view(), name='get-transactions'),
     path('transactions/<int:id>', TransactionView.as_view(),
          name='delete-transactions'),
