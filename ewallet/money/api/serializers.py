@@ -12,7 +12,7 @@ class WalletGetSerializer(serializers.ModelSerializer):
 class WalletCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
-        fields = ['name']
+        fields = ['name', "slug", "balance"]
 
 
 class TransactionGetSerializer(serializers.ModelSerializer):

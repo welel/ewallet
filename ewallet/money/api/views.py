@@ -38,8 +38,8 @@ class WalletView(APIView):
         wallet = Wallet()
         serializer = WalletCreateUpdateSerializer(wallet, data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+            saved_instance = serializer.save()
+            return Response(WalletCreateUpdateSerializer(saved_instance).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, slug: str):
@@ -56,6 +56,13 @@ class WalletView(APIView):
         if operation:
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    @staticmethod
+    @api_view(['GET', ])
+    def get_by_slug(request, slug:str):
+        wallet = get_object_or_404(Wallet, slug=slug)
+        serializer = WalletGetSerializer(wallet)
+        return Response(serializer.data)
 
 
 class TransactionView(APIView):
@@ -87,7 +94,7 @@ class TransactionView(APIView):
 
     @transaction_decorators.atomic
     def post(self, request):
-        wallet = get_object_or_404(Wallet, name=request.data['wallet'])
+        wallet = get_object_or_404(Wallet, slug=request.data['slug'])
         transaction = Transaction(wallet=wallet)
         serializer = TransactionCreateUpdateSerializer(transaction,
                                                        data=request.data)

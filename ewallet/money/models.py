@@ -9,15 +9,6 @@ class Wallet(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True)
     balance = models.PositiveIntegerField(default=0, editable=False)
 
-    def save(self, *args, **kwargs):
-        if self.name == '':
-            self.name = 'Wallet {}'.format(uuid.uuid4())
-
-        slug = slugify(self.name, allow_unicode=True)
-        if not self.slug or self.slug != slug:
-            self.slug = slug
-        return super().save(*args, **kwargs)
-
 
 class Transaction(models.Model):
     TYPE_INCOME = 'income'

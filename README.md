@@ -21,7 +21,7 @@
    . venv/bin/activate
    ```
 
-4. Установка зависимостей из файла ``requirements.txt``.
+4. Установка зависимостей из файла ``requirements.base.txt``.
 
    ```bash
    pip install -r requirements.txt
@@ -309,3 +309,12 @@ http://127.0.0.1:8000/api/money/transactions/red
 ]
 ```
 
+## Run with docker-compose
+```bash
+make dev-up
+```
+
+## Shoutdown with docker-compose
+```bash
+make dev-down
+```

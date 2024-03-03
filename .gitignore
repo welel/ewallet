@@ -7,3 +7,4 @@ migrations/
 *.sqlite
 *.sqlite3
 .idea/
+.env.db
